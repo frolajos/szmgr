@@ -154,7 +154,7 @@ Dále se řídí principy:
   - snižuje se tím provázanost modulů, je možné poskytnout vlastní implementaci či mockovat
   - konstruktur by měl přijímat vše, na čem struktura závisí, ne si vytvářet zdroje sám (e.g. repo si nemá tvořit připojení do databáze, ale má být předáno v konstruktoru) = dependency injection konstruktorem
 
-![https://softwareengineering.stackexchange.com/questions/447532/when-to-not-use-solid-principles](image.png)
+![https://softwareengineering.stackexchange.com/questions/447532/when-to-not-use-solid-principles](./img/image.png)
 
 ## Refaktoring
 

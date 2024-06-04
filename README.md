@@ -59,7 +59,6 @@ Sepsáno na základě přednášek, osobních zkušeností, praxe, a samozřejm�
 
 ## DEV
 
-
 1. [Analysis and design of systems](./dev_1_analyza_a_navrh.md) (**PA103**, **PV167**, PV258)
    - [ ] Object-oriented methods of information systems design.
    - [ ] Requirements specification and management.

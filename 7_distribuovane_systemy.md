@@ -1,4 +1,5 @@
 # Distribuované systémy
+>
 > Základní pojmy, principy. Rozdíl mezi centralizovanou a distribuovanou architekturou systému, nevýhody obojího a jejich překonávání. Replikace, sdílení dat. Architektura orientovaná na služby (SOA), webové služby. Příklady existujících technologií a jejich využití. Příklady z praxe pro vše výše uvedené. ([PA053](https://is.muni.cz/auth/el/fi/jaro2023/PA053/um/))
 
 ## Základní pojmy, principy
@@ -10,6 +11,7 @@ Architektury popsány v [otázce 1](./1_programovani_a_softwarovy_vyvoj.md#zákl
 **Monolitická architektura** - obsahuje vše, co systém potřebuje, je možné pouze vertikální škálování, špatná spolehlivost (pád znamená pád celého systému)
 
 **Úrovňová (tiered) architektura** (nezaměňovat s layered) - jednotlivé úrovně lze distribuovat, paralelizovat, nahradit (komunikace skrz API)
+
 - Klient může být tenký/tlustý dle poskytnuté funkcionality, klasické úrovně bývají klient, server, databáze.
 
 **Hexagonal/Microkernel/component-based** - základní aplikace poskytuje minimální funkcionalitu, zbytek se dodává skrz plug-in komponenty komunikující přes předdefinované api. Komponenty je možné případně zapojovat za běhu systému. Další možnost využití komponentů - pokud potřebujeme používat legacy systém, který si nemůžeme dovolit přepsat, je možné ho zabalit jako komponent a přistupovat k němu přes naše kompatibilní rozhraní. Vývoj komponentových systémů je náročnější (zvlášť problematické je správně určit rozhraní), ale umožňuje větší přizpůsobitelnost/znovupoužitelnost komponentů v budoucích projektech. E.g. extensions ve VSCode, component-based architekturu používá Jakarta Enterprise Edition, kde jednotlivé Java Beans jsou komponenty
@@ -31,7 +33,7 @@ Alternativně se může pro komunikaci v distribuovaném systému používat e.g
 **GRID computing** - výpočet velmi náročných úloh pomocí velkého množství zdrojů (např. dobrovolnický Folding@home). Zdroj může být CPU, storage, speciální zařízení, ...
 
 **Batch vs Stream processing**
-![](img/20230602104120.png)
+![batch vs stream](img/20230602104120.png)
 
 U batch processingu můžeme distribuovat pomocí jednotlivých jobs, řeší se plánování jobs (může stačit obyčejná fronta)
 
@@ -39,26 +41,27 @@ Stream e.g. Apache Kafka
 
 **MapReduce** - k transformaci dat používáme operace MAP (transformace dat 1:1) a REDUCE (sumarizace dat N:1). MAPery lze triviálně paralelizovat (stejné i rozdílné operace), u REDUCErů je to trochu složitější, paralelizujeme rozdílné operace. E.g. Apache Hadoop
 
-
 ## Rozdíl mezi centralizovanou a distribuovanou architekturou systému, nevýhody obojího a jejich překonávání
 
 Hlavním rozdílem je, že centralizovaná architektura shromažďuje data a logiku na jednom místě, distribuovaná architektura rozptyluje logiku do více samostatných komponentů (běžících třeba i na samostatných strojích), které spolu komunikují.
 
 Nevýhody centralizované architektury
+
 - neumožňuje horizontální škálování => škálujeme vertikálně
 - selhání části znamená selhání celku => redundance, záložní servery
 - nízká flexibilita, vysoká provázanost => důraz na kvalitu kódu
 
 Nevýhody distribuované architektury
+
 - komplexita celkového systému, náročnější správa
 - vyžadují více/složitější komunikaci, složitější synchronizace, náchylnost na latenci => použití message queues, gRPC, eventual consistency
 
-
 Oproti centralizované architektuře distribuované systémy
+
 - nebývají požadavky/transakce ACID, ale BASE
-    - **BAsically available** - nefunkčnost části nezpůsobí nefunkčnost celku, zbytek funguje i v případě nefunkční části systému. e.g. na netflixu nemusí fungovat služba hledání, ale vše ostatní běží v cajku. Na každý dotaz dostaneme nějakou odpověď.
-    - **Soft state** - změny v systému mohou nastávat i když nepřichází žádné dotazy - systém takto propaguje data, aby dosáhl konzistence
-    - **Eventually consistent** - data nemusí být konzistentní okamžitě po získání odpovědi na dotaz, ale až po nějaké chvíli
+  - **BAsically available** - nefunkčnost části nezpůsobí nefunkčnost celku, zbytek funguje i v případě nefunkční části systému. e.g. na netflixu nemusí fungovat služba hledání, ale vše ostatní běží v cajku. Na každý dotaz dostaneme nějakou odpověď.
+  - **Soft state** - změny v systému mohou nastávat i když nepřichází žádné dotazy - systém takto propaguje data, aby dosáhl konzistence
+  - **Eventually consistent** - data nemusí být konzistentní okamžitě po získání odpovědi na dotaz, ale až po nějaké chvíli
 - selhání (pád) části systému neznamená pád celku
 - jsou flexibilnější na modifikace díky nízké provázanosti
 
@@ -72,14 +75,13 @@ NoSQL databáze mají obvykle mechanismy pro automatickou replikaci/distribuci d
 
 Pro sdílení dat (událostí) je možné použít Apache Kafka, platformu pro streamování dat ukládaných do logů. Pro sdílení informací o službách distribuovaného systému se dá použít Apache ZooKeeper.
 
-
 ## Architektura orientovaná na služby (SOA)
 
 Hybrid mezi microservices a monolitem, poměrně pragmatická architektura pro škálovatelný systém. Systém je tvořen vzájemně nezávislými, samostatně nasaditelnými a vzájemně komunikujícími službami (obvykle 4-12), které obsahují ucelené jednotky funkcionality (e.g. uživatelé, správa produktů, správa objednávek, platební služba, mailová služba...). Každá služba může být nezávisle na ostatních škálována. Nad službami může být pro zajištění jednotného API vrstva fasády. Služby obvykle sdílí databázi, ale je možné ji rozbít na vícero nezávislých celků. Je náročnější na vývoj, ale celkově je systém díky modularizaci lépe udržitelný a škálovatelný.
 
 ## Webové služby
 
-Komponenty umožňující komunikaci a interakci prostřednictvím standardizovaných protokolů a formátů. Jsou založeny na Service Oriented Architecture. Web services poskytují abstrakci funkcionalitě služby skrz webové API. Skrz definiční jazyk je formálně popsáno schéma/rozhraní dané služby a je možné generování klientského kódu pro různé programovací jazyky s cílem usnadnit použití webové služby. Schéma může být zároveň generováno přímo ze zdrojového kódu prostřednictvím anotací. 
+Komponenty umožňující komunikaci a interakci prostřednictvím standardizovaných protokolů a formátů. Jsou založeny na Service Oriented Architecture. Web services poskytují abstrakci funkcionalitě služby skrz webové API. Skrz definiční jazyk je formálně popsáno schéma/rozhraní dané služby a je možné generování klientského kódu pro různé programovací jazyky s cílem usnadnit použití webové služby. Schéma může být zároveň generováno přímo ze zdrojového kódu prostřednictvím anotací.
 
 Dříve se používaly web services založené na **SOAP** (simple object access protocol) a **XML**, definované pomocí **Web Service Definition Language (WSDL)**.
 
@@ -92,4 +94,5 @@ Aktuálně se pro tyto účely spíše používá **REST** (representational sta
 ## Notes
 
 **Middleware** - vrstva softwaru poskytující rozhraní pro interakci s různými službami/systémy, abstrakce k často používané funkcionalitě, případně vrstva propojující existující systémy.
+
 - e.g. CORBA, Web Services, REST, message queue systémy, event brokeři.

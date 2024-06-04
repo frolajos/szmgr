@@ -1,4 +1,5 @@
 # Databáze
+>
 > Principy ukládání dat, databáze a souborové systémy. Kódování a komprese dat. Architektura relačních databází, dotazovací jazyk SQL a jeho části (definice, manipulace, transakce). Jazyk definice datového schématu, DDL. Jazyk manipulace s daty, DML. Relační algebra, integritní omezení, řízení transakcí. Indexování, hašování. Příklady z praxe pro vše výše uvedené. ([PV003](https://is.muni.cz/auth/el/fi/jaro2022/PV003/um/) || PV062)
 
 ## Principy ukládání dat, databáze a souborové systémy
@@ -6,6 +7,7 @@
 Data se v praxi ukládají přímo do souborového systému, nebo do databáze (relační, dokumentové, grafové...).
 
 ### Souborový systém
+
 - menší systémové nároky, jednodušší
 - náročné zajištění konzistence, nutnost řešení zamykání souborů, problematický transakční přístup
 - náročnější správa přístupových práv
@@ -16,47 +18,48 @@ Data se v praxi ukládají přímo do souborového systému, nebo do databáze (
 - pro aplikace se hodí na ukládání velkých souborů (pdf, obrázky, video, statická stránka, pokud tedy nepoužijeme CDN), které je nepraktické uchovávat v databázi. Je nutné dávat pozor, abychom neposkytli přístup jinam než chceme.
 
 ### Databázový systém
+
 - nezávislý na aplikaci, jednotné rozhraní pro všechny
 - snadné zabezpečení, konzistence, souběžný přístup
 - snadná čitelnost, dokumentovatelnost
 - relační systémy korelují s ERD
 - deklarativní přístup
 - optížná implementace složitějších struktur (záleží však na systému)
-- O relačních databázích platí, že umožňují ACID [transakce](./5_databaze.md#řízení-transakcí). 
+- O relačních databázích platí, že umožňují ACID [transakce](./5_databaze.md#řízení-transakcí).
 
 ## Kódování a komprese dat
 
-Techniky s cílem transformace informací do formátu, který je efektivní na ukládání či přenos. 
+Techniky s cílem transformace informací do formátu, který je efektivní na ukládání či přenos.
 
 **Bezztrátová komprese** - z komprimovaných dat jsme schopni plně rekonstruovat původní data (e.g. png, zip)  
 **Ztrátová komprese** - část komprimovaných dat je ztracena (e.g. jpeg, mp3), ale jsme schopni dosáhnout větší komprese
 
-### Vybrané metody 
+### Vybrané metody
 
-**Statistické**
+#### Statistické
+
 - [Huffmanovo kódování](https://www.youtube.com/watch?v=iEm1NRyEe5c) - na základě frekvence určíme pro každý symbol kódovací znak, kód má minimální redundanci, proměnlivá délka kódu symbolů
     1. seřadíme znaky podle frekvence do prioritní fronty ve formě uzlů, u každého máme uvedenou frekvenci
     2. vyjmeme 2 uzly s nejmenšími frekvencemi a spojíme je do uzlu, který bude mít frekvenci rovnou součtu frekvencí. Takto vytváříme stromovou strukturu. Opakujeme, dokud nemáme 1.
     3. procházíme stromovou strukturu od kořene, levé větve značíme `0`, pravé `1`, cesta od kořene po uzel unikátně identifikuje symbol a kombinací `0` a `1` získáme kód pro daný symbol
-    
+
 - [Shannon-Fano](https://www.youtube.com/watch?v=dJCck1OgsIA) - podobný jako Huffman, nemusí být optimální, ale jdeme od kořene a sekvenci symbolů seřazených dle frekvence dělíme na poloviny (+-, sčítáme frekvence a při překročení poloviny dělíme), Při každém dělení značíme `0` a `1`. Jakmile je ve vytvořené polovině jen 1 symbol, už není co dělit.
-
-
 
 ## Architektura relačních databází
 
 *Fun fact: Jaká architektura se v RDBMS používá? To se v předmětu `Architektura relačních databází` nedozvíte*
 
 Nějaká jednoduchá architektura by mohla vypadat takto:
-- databázový server 
-    - přijímá, zpracovává a odpovídá na požadavky
-- relační databázový systém 
-    - autentizace, autorizace
-    - aplikace pracující nad samotnou databází
-    - umožňuje tvorbu tabulek/indexů... manipulaci s daty, jejich čtení...
-    - zajišťuje integritu dat
-    - vyhodnocuje a zpracovává SQL queries, provádí vnitřní optimalizace
-    - může dělat kešování
+
+- databázový server
+  - přijímá, zpracovává a odpovídá na požadavky
+- relační databázový systém
+  - autentizace, autorizace
+  - aplikace pracující nad samotnou databází
+  - umožňuje tvorbu tabulek/indexů... manipulaci s daty, jejich čtení...
+  - zajišťuje integritu dat
+  - vyhodnocuje a zpracovává SQL queries, provádí vnitřní optimalizace
+  - může dělat kešování
 - databáze - samotné místo, kde jsou data uložena
 
 RDBMS může obsahovat techniky pro administraci přístupových práv (omezení určitých operací, viditelnost dat až na row/column level...).
@@ -64,7 +67,8 @@ RDBMS může obsahovat techniky pro administraci přístupových práv (omezení
 Pokud se otázkou myslí *Z jakých prvků se relační databáze skládají*, pak by bylo fajn mluvit o tabulkách, sloupcích, jazyku SQL pro jejich definici (DDL, data definition language) a manipulaci (DML, data manipulation language), indexech, (materializovaných) views...
 
 ## Dotazovací jazyk SQL a jeho části (definice, manipulace, transakce)
-Dotazovací jazyk SQL vychází z [relační algebry](./5_databaze.md#relační-algebra). 
+
+Dotazovací jazyk SQL vychází z [relační algebry](./5_databaze.md#relační-algebra).
 
 Obsahuje konstrukty pro definici datového schématu, pro manipulaci s daty a pro transakční zpracování (viz další sekce).
 
@@ -74,9 +78,9 @@ SQL může obsahovat triggery, tedy dodatečné akce, které se mají vykonat p�
 
 Při práci s SQL používáme prepared stetements, abychom zabránili SQL injection.
 
-## Jazyk definice datového schématu, DDL.
+## Jazyk definice datového schématu, DDL
 
-*Note: různé RDBMS podporují různé typy. Třeba TEXT v základu SQL definován není, ale v praxi je použití VARCHAR2 s fixní délkou příliš nepraktické, proto ho tu uvádím*
+*Note: různé RDBMS podporují různé typy. Třeba TEXT v základu SQL definován není, ale v praxi je použití VARCHAR2 s fixní délkou příliš nepraktické, proto ho tu uvádím.*
 
 Tvorba tabulky
 
@@ -103,7 +107,9 @@ Pro datum/čas používáme DATETIME. Pokud bychom použili INTy & unix timestam
 U cizích klíčů můžeme specifikovat `ON DELETE` `CASCADE` (se smazáním uživatele se smažou i jím přidané produkty), `SET NULL` (se smazáním uživatele se nastaví `created_by` na NULL, což ale kvůli našemu constraintu nepůjde). V aktuální konstelaci daného uživatele nemůžeme smazat.
 
 Modifikace tabulky
+
 - přidání sloupce, odebrání sloupce, zahození tabulky (selže, pokud na ni jsou reference z jiných tabulek)
+
 ```sql
 ALTER TABLE Products ADD picture TEXT;
 ALTER TABLE Products DROP COLUMN description;
@@ -114,9 +120,9 @@ Je možné použít `IF EXISTS` a `IF NOT EXISTS`, aby nám skript nepadal při 
 
 V produkci použijeme migrační schéma obsahující UP a DOWN skripty, abychom mohli případně akce revertovat.
 
-## Jazyk manipulace s daty, DML.
+## Jazyk manipulace s daty, DML
 
-**Insert**
+### Insert
 
 ```sql
 INSERT INTO Tabulka(sloupec_a, sloupec_b) 
@@ -125,7 +131,7 @@ VALUES (hodnota_a, hodnota_b);
 
 Kontrolují se integritní omezení, v případě autoincrement/serial klíče ho není nutné explicitně uvádět. Obvykle příkaz vrací vložená data (včetně vygenerovaných hodnot).
 
-**Update**
+### Update
 
 ```sql
 UPDATE Tabulka 
@@ -135,7 +141,7 @@ WHERE ... --často klíč
 
 Update bez WHERE může provést update všeho. Kontrolují se integritní omezení
 
-**Delete**
+### Delete
 
 ```sql
 DELETE FROM Tabulka WHERE ...
@@ -143,7 +149,7 @@ DELETE FROM Tabulka WHERE ...
 
 Delete bez WHERE může provést smazání celého obsahu
 
-**Select**
+### Select
 
 Trochu nabušený select:
 
@@ -153,7 +159,8 @@ JOIN TabulkaB AS B ON Tabulka.cizi_id = B.id
 WHERE price > 0
 ORDER BY sloupec ASC
 ```
-*Join jde přepsat pomocí WHERE*
+
+*Join jde přepsat pomocí WHERE.*
 
 Výsledek selectu lze dát do závorek a použít namísto nějaké tabulky, data mají pořád tabulární strukturu.
 
@@ -161,17 +168,17 @@ Mezi daty se stejnou strukturou lze provést množinové operace `UNION`, `INTER
 
 U `WHERE` můžeme používat i příslušnost v množině hodnot `IN`, rozsahu `BETWEEN ... AND ...`, logické operátory `AND`, `OR`... U stringů `LIKE` kde `?` zastupuje znak a `%` několik znaků.
 
-**Pohled/View**
+### Pohled/View
 
 - Uložený a pojmenovaný select, který se vykoná s provedením dotazu
 - view mají omezenou modifikaci dat (například nelze, pokud obsahuje agregaci, distinct, union...)
     => je lepší použít zdrojové tabulky
 
-**Materializovaný pohled/view**
+### Materializovaný pohled/view
 
 - View, jehož výsledek se předpočítává. Vrací se pak hodnoty přímo z nové tabulky, ale s každou změnou je třeba materializované view přepočítat (rychlejší čtení, pomalejší zápis).
 
-**Agregační funkce**
+### Agregační funkce
 
 Používané s `GROUP BY sloupec/sloupce`
 
@@ -186,11 +193,13 @@ Používané s `GROUP BY sloupec/sloupce`
 Lze použít `HAVING ...`, což je `WHERE`, ale s použitím agregačních funkcí.
 
 ## Relační algebra
+>
 > *[@thes01](https://github.com/thes01): více taky na [tomto odkazu (bc státnice)](https://docs.google.com/document/d/1SVbwwMDDfOCqAdsfTH1RDJex9_fZZ96wb0Vp2fSoUFs/edit)*
 
 **Relace** je podmnožinou kartézského součinu domén. Toto se promítne do databáze tak, že domény jsou datové typy sloupců a tabulka (složená ze sloupců) obsahuje pouze takové kombinace hodnot (řádky), jaké jsou v relaci.
 
-Pro relační operace používáme relační algebru skládající se z 
+Pro relační operace používáme relační algebru skládající se z
+
 - **množinových operací** (ale pro sjednocení, rozdíl a průnik musí být relace kompatibilní, i.e., mít stejnou hlavičku)
 - **projekce** - i.e. výběr sloupců
 - **selekce** - i.e. WHERE
@@ -207,15 +216,16 @@ Existují dotazy, které nejsme schopní vyjádřit relační algebrou, třeba t
 
 Součástí DDL, jazyku definice dat. Určitým způsobem omezují, jakých hodnot mohou pole nabývat. E.g. `NOT NULL`, `UNIQUE`, `FOREIGN KEY .. RERERENCES ..(..)`, `CHECK(price>0)`... Uvádí se na příslušný řádek (ideálně), tabulky, jako dodatečný řádek tabulky, nebo jako samostatný výraz `ALTER TABLE .. ADD CONSTRAINT ... NOT NULL (id)`.
 
-## Řízení transakcí.
+## Řízení transakcí
 
 Transakce v RDBMS mají ACID vlastnosti
+
 - **Atomicity** - skupina příkazů transakce brána jako jednotka; provedou se všechny, nebo žádný
 - **Consistency** - po vykonání transakce ke db v konzistentním stavu, není porušeno žádné integritní omezení
 - **Isolation** - transakce je izolovaná od ostatních transakcí, je možné nastavit úrovně transakce, dle toho může transakce skončit chybou (pokud došlo k modifikaci stejného objektu, jaký modifikovala jiná transakce), nebo se využijí zamykací mechanismy
 - **Durability** - data jsou po vykonánání transakce persistentně uložena
 
-Transakce se potvrzují příkazem `COMMIT`, vrací příkazem `ROLLBACK` na stav před započením transakce, či po poslední `SAVEPOINT` 
+Transakce se potvrzují příkazem `COMMIT`, vrací příkazem `ROLLBACK` na stav před započením transakce, či po poslední `SAVEPOINT`
 
 ## Indexování
 
@@ -225,16 +235,18 @@ Index slouží ke zrychlení/zefektivnění častých dotazů nad tabulkou. Dota
 CREATE INDEX my_index ON Products (Price)
 ```
 
-Pro indexy se mohou používat 
+Pro indexy se mohou používat
+
 - **tradiční indexy** - jako v knihách, odkazy na řádky s danou hodnotou, je možné dělat více úrovní indexů, používat různá indexová uspořádání...
 - **haše** - pro získání jednoduché hodnoty velkých dat
 - **B+ stromy** - každý uzel obsahuje odkazy na uzly níže, nebo hodnoty (jedná se o listový uzel). Hodnoty jsou v listech vzestupně uspořádány, uzly v sobě mají i informace o intervalech daných odkazů/hodnot, listy jsou provázané.
-    ![](img/20230526220652.png)
+    ![bplusstrom](img/20230526220652.png)
 - **R stromy** - podobné jako B+, ale jsou vícedimenzionální, ve 2D fungují jako obdélníky. Data jsou v listových uzlech stromu. Rodič uzlu zahrnuje všechny své potomky (ve 2D jde o větší obdélník, který obsahuje potomky). Ideální je, aby zabíraly rodičovské obdélníky co nejméně prostoru - rodič totiž jako index redukuje oblast nutnou k prohledání (říká *hledej ve mně!*).
-    ![](img/20230526220927.png)
-    ![](img/20230611232516.png)
+    ![rstrom](img/20230526220927.png)
+    ![splitexample](img/20230611232516.png)
 
 Další dělění indexů
+
 - **dense** - každý řádek je zaindexovaný, zabírá více místa, ale hledání je rychlejší
 - **sparse** - pouze některé řádky zaindexované, zabírá méně místa, ale hledání pomalejší (je potřeba dohledat konkrétní řádek)
 
@@ -244,12 +256,14 @@ Další dělění indexů
 
 Hašování se používá pro zajištění integrity dat (certifikáty, checksum), rychlé porovnávání dat (HashMap), porovnávání dat se znalostí pouze heše (uchovávání hash hesel v databázi, Argon2).
 
-**Bezkoliznost**
+### Bezkoliznost
+
 - **slabá** - pro vstup A nejsme schopni v rozumném čase nalézt rozdílný vstup B, který by měl stejný hash
-- **silná** - nejsme schopni v rozumném čase najít libovolné dva rozdílné vstupy se stejným hashem 
+- **silná** - nejsme schopni v rozumném čase najít libovolné dva rozdílné vstupy se stejným hashem
 
 Pro různé účely používáme různé algoritmy, jde o balanc rychlosti (u hesel může je kýžená pomalost) a bezpečnosti/pravděpodobnosti kolize.
-- **MD5** - relativně rychlý, není bezpečný (lze rychle najít kolize i na běžném počítači). 
+
+- **MD5** - relativně rychlý, není bezpečný (lze rychle najít kolize i na běžném počítači).
 - rodina Secure Hashing Algorithm, za bezpečnou se aktuálně považuje **SHA-2** (SHA256, SHA512, SHA-384...)
 - **Argon2** - v současnosti doporučovaný pro hašování hesel
 - hašem (hloupým, ale rychlým) může být třeba i délka vstupu, modulo, součet ascii hodnot znaků... (nazývá se [Cyclic redundancy check](./dev_3_bezpecny_kod.md#notes))

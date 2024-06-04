@@ -46,7 +46,7 @@ Pro desktopové aplikace je možné použít i technologie jako GTK (existují b
 - Později se přešlo na single-page přístup pomocí client side rendering
 - aktuálně je možné přístupy míchat (initial page load je SSR, následně CSR), což je fajn pro iniciální page load, friendly pro SEO roboty... (e.g. nextjs)
 
-## Proces vývoje uživatelského rozhraní a zásady kvality.
+## Proces vývoje uživatelského rozhraní a zásady kvality
 
 Začneme uživatelským výzkumem, abychom pochopili skutečné požadavky na UI. Následuje návrh pomocí wireframů a prototypů, které můžeme použít pro zpětnou vazbu a jako předlohu pro vývojovou práci. Na konec je důležité provést uživatelské testování s různými typy uživatelů, abychom předešli problémům při nasazení aplikace.
 
@@ -59,7 +59,7 @@ Začneme uživatelským výzkumem, abychom pochopili skutečné požadavky na UI
 
 ### Interaction design
 
-Snažíme se pochopit, jakým způsobem uživatelé se systémem pracují či interagují a uzpůsobit tomu uživatelské rozhraní. 
+Snažíme se pochopit, jakým způsobem uživatelé se systémem pracují či interagují a uzpůsobit tomu uživatelské rozhraní.
 
 ### Wireframování
 
