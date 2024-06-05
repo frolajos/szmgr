@@ -38,21 +38,22 @@ Webové informační systémy mají tyto specifika:
 - **snadnost aktualizací klienta**, na rozdíl od desktop aplikací není potřeba ze strany uživatele nic explicitně stahovat a instalovat
 - nutnost **responzivního a přístupného uživatelského rozhraní**, ke kterému uživatelé mohou přistupovat i z mobilních zařízení, prohlížeče usnadňují implementaci přístupnosti (vada zraku, přístup pouze pomocí klávesnice...)
 - většinou **tenký klient**, aplikační logika se provádí z pravidla na serveru.
-- webové systémy bývají (pokud není řešeno jinak) přístupné z celého internetu, proto je důležité vhodně řešit **autentizaci a autorizaci**, a jejich **zabezpečení proti útokům** (například SQL injection, XSS, CSFR, více níže).
+- webové systémy bývají (pokud není řešeno jinak) přístupné z celého internetu, proto je důležité vhodně řešit **autentizaci** a **autorizaci**, a jejich **zabezpečení proti útokům** (například SQL injection, XSS (Cross Site Scripting), CSFR (Cross-site Request Forgery), více níže).
 - mohou být používané větším množstvím uživatelů, proto je vhodně třeba řešit škálování (vertikální větším výkonem nemusí stačit, horizontální vícero stroji nemusí být vždy aplikovatelné). Aplikační servery je možné díky jejich bezstavovosti škálovat horizontálně, databáze se obvykle řeší vertikálně, či použitím distribuované databází (Cassandra). Základem zvyšování výkonu systému je kešování (Redis).
-- Obvykle se používá model klient-server
+- Obvykle se používá model **klient-server**
 
 ### Útoky
 
 - **SQL injection** do vstupního pole vložíme specifický string, který dokáže způsobit akci v databázi (e.g. vstup `ahoj; DROP TABLE Users; --`)
   - obrana pomocí prepared statements
 - **Session hijacking** útočník se zmocní cookie/tokenu, který se používá pro prokázání identity. Tokeny ukládáme jako cookie (nejbezpečnější, pro mobilní aplikace je v pohodě local storage)
-  - obrana pomocí nastavení cookie jako "Secure" (lze poslat jen skrz https) a "HttpOnly" (nelze číst/upravit pomocí JS)
+  - obrana pomocí nastavení cookie jako `"Secure"` (lze poslat jen skrz https) a `"HttpOnly"` (nelze číst/upravit pomocí JS)
 - **Cross site scripting (XSS)** - útočník vloží na web obsah, který je validní html/js a oběti se zobrazí/spustí při načtení stránky.
+  - ochrana pomoci CSP
   - obrana pomocí sanitizace vstupů
 - **Cross site request forgery (CSRF)** - útočník připraví a pošle klientovi URL odkaz (nebo vytvoří na svém webu formulář) vyvolávající akci na našem serveru.
   - obrana pomocí CSFR náhodných tokenů (jednorázově vydaný s požadavkem dávající uživateli přístup k akci). Token vložíme do formuláře (aby ho uživatel mohl odeslat) a zároveň si ho buď uložíme, nebo ho nastavíme jako cookie. Při zpracování požadavku zkontrolujeme, zda se tokeny shodují.
-  - obrana pomocí cookie atributu "SameSite", který modifikuje, kdy se cookie posílá při cross-site požadavcích. `Strict` neposílá cookie nikdy při cross site požadavcích, `Lax` jen při GET požadavcích - ty by stejně neměly vyvolávat akci, takže by to nemělo vadit. Problém však přetrvává u starých prohlížečů, nebo pokud se útočníkovi podaří umístit vlastní formulář na naši doménu či subdoménu.
+  - obrana pomocí cookie atributu `"SameSite"`, který modifikuje, kdy se cookie posílá při cross-site požadavcích. `Strict` neposílá cookie nikdy při cross site požadavcích, `Lax` jen při GET požadavcích - ty by stejně neměly vyvolávat akci, takže by to nemělo vadit. Problém však přetrvává u starých prohlížečů, nebo pokud se útočníkovi podaří umístit vlastní formulář na naši doménu či subdoménu.
   - obrana pomocí explicitního potvrzení (nebo MFA) u důležitých akcí
 - **Clickjacking** útočník na svém webu zobrazí průhledný ifame nad svou stránkou. Uživatel si myslí, že kliká na tlačítko útočníkova webu, ale ve skutečnosti kliká na web v iframe, čímž může vyvolat nechtěnou akci
   - obrana pomocí `X-Frame-Options` hlavičky
@@ -69,7 +70,7 @@ Více v [Bezpečný kód](./dev_3_bezpecny_kod.md)
 - ověření identity
 - **Session based** - uživatel poskytne údaje, server vydá cookie, kterou si udržuje (db/paměť). Uživatel následně s každým požadavkem zasílá cookie, podle které server ověří a rozpozná uživatele
 - **Token based** - uživatel ověří svou identitu, server zapouzdří údaje o uživateli do tokenu, který podepíše, čímž zajistí, že je možné detekovat modifikaci. Uživatel následně zasílá token, kterým prokazuje svou totožnost, mohou zde být i informace o právech. Na rozdíl od sessions nemusí díky certifikátům servery nic držet v paměti, jde o řešení vhodné pro použití s vícero servery/systémy, nebo když se uchovávají sessions v databázi a databáze začíná být bottleneck. Tokeny se nedají revokovat ze strany serveru => dává se časově omezená platnost
-- pokud nám nevadí používat autorizaci poskytnutou střetí stranou, bývá nejbezpečnější a nejjednodušší řešení použít federalizovanou identitu. Pokud opravdu chceme ukládat uživatelská hesla, ukládáme heše (se solí) získané aktuálně doporučovaným Argon2 (může se změnit).
+- pokud nám nevadí používat autorizaci poskytnutou třetí stranou, bývá nejbezpečnější a nejjednodušší řešení použít federalizovanou identitu. Pokud opravdu chceme ukládat uživatelská hesla, ukládáme heše (se solí) získané aktuálně doporučovaným Argon2 (modern and secure key derivation function).
 
 #### Autorizace
 
@@ -81,7 +82,7 @@ Více v [Bezpečný kód](./dev_3_bezpecny_kod.md)
   - `-` hlavička je viditelná (=> použij aspoň https), údaje se zasílají s každým požadavkem
 - **TLS certifikáty** - server musí poskytnout certifikát, klient může poskytnout certifikát, čímž se autentizuje
 - **OAuth2** - protokol pro poskytnutí autorizace třetím stranám, funguje na principu vydávání tokenů (Refresh token, Access token). Access token má omezenou dobu platnosti a obsahuje autorizační data (majitel tokenu je oprávněn k akci) uživatele podepsanou soukromým klíčem autorizačního serveru. Refresh token může mít delší dobu platnosti, je uložený u uživatele a je možné ho použít k získání dalšího access tokenu bez nutnosti autentizace (provedou se ale kontroly ohledně práv uživatele).
-- **OpenID Connect** - nadstavba nad OAuth2, přidává autentizaci a informace o identitě uživatele. Používá se pro federalizovanou správu identity (single sign-on). *Klient* je aplikace, která potřebuje autentizovat uživatele. *Autorizační server* autentizuje uživatele, vydává token autorizující držitele k přístupu ke *scopes* obsahující *claims* (e.g. scope profil pro claimy id, email, name, picture, locale...) umístěných na *resource serveru*. Resource server slouží jako endpoint pro poskytování claimů na základě scopes v tokenu
+- **OpenID Connect (OIDC)** - nadstavba nad OAuth2, přidává autentizaci a informace o identitě uživatele. Používá se pro federalizovanou správu identity (single sign-on). *Klient* je aplikace, která potřebuje autentizovat uživatele. *Autorizační server* autentizuje uživatele, vydává token autorizující držitele k přístupu ke *scopes* obsahující *claims* (e.g. scope profil pro claimy id, email, name, picture, locale...) umístěných na *resource serveru*. Resource server slouží jako endpoint pro poskytování claimů na základě scopes v tokenu
 - **SAML** - xml protokol pro výměnu autentizačních a autorizačních dat, starší než oauth/oidc
 - **Kerberos** - na rozdíl od oauth2 a openid connect používá v základu symetrickou kryptografii (e.g. uživatelovo heslo je na autorizačním serveru, uživatel posílá pouze svou identitu a server vrací přístupová data šifrovaná heslem uživatele)
 
@@ -101,6 +102,8 @@ Pro vývoj rozsáhlých systémů se používají následující typy nástrojů
 
 ## Základní koncepty softwarových architektur z pohledu implementace, Vícevrstvá architektura moderních informačních systémů, Architektura model-view-controller
 
+![kolecka](./img/mvc.png    )
+
 - **MVC pattern - model, view, controller** - odděluje systém na model, view a controller. Model obsahuje data a business logiku. View  je zobrazením těchto dat a controller slouží k manipulaci nad modelem. Jde o cyklický vztah:  -->
 
   `USER  (uses)>  CONTROLLER  (manipulates)>  MODEL  (updates)>  VIEW  (shown to)>  USER`
@@ -114,11 +117,12 @@ Pro vývoj rozsáhlých systémů se používají následující typy nástrojů
 
 - **Peer-to-Peer** - každý klient je současně i serverem, klienti spolu komunikují napřímo. Klienti takto sdílí výpočetní výkon, distribuují data... e.g. BitTorrent
 
-- **Vrstvená architektura (layered, případně clean)** - Dělí monolitický systém na vrstvy, každá je zodpovědná za určitou část aplikace. Vrstva využívá služeb vrstvy pod ní. Každá vrstva může být otevřená/uzavřená, otevřené vrstvy je možné přeskočit.
+- **Vrstvená architektura** (**layered**, případně **clean**) - Dělí monolitický systém na vrstvy, každá je zodpovědná za určitou část aplikace. Vrstva využívá služeb vrstvy pod ní. Každá vrstva může být otevřená/uzavřená, otevřené vrstvy je možné přeskočit.
   - **Presentation** - closed, UI, klient
   - **Business** - closed, zpracovává business logiku
   - **Service** - open, obsahuje sdílené komponenty business vrstvy (autentizace, logování)
-  - **Persistence** - closed, slouží k přístupu do databáze, repository pattern ()
+  - **Persistence** - closed, slouží k přístupu do databáze, **repository pattern**
+  ![alt text](./img/repository-pattern.png)
   - **Database** - closed, čistě databázová vrstva
 
   - jednoduchá na vývoj (pořád je to monolit), levná, vhodná pro projekty s velmi omezeným časem/rozpočtem, vhodná pokud si nejsme jistí co použít
@@ -154,7 +158,7 @@ Pro vývoj rozsáhlých systémů se používají následující typy nástrojů
   - pokud chceme jednotné API, používá se vrstva fasády, která přeposílá komunikaci jednotlivým službám
   - ACID transakce (microservices mají BASE, basically available, soft state, eventually consistent, i.e. duplikace dat, konzistence může chvíli trvat..), fajn pro konzistenci a integritu, ale úprava znamená nutnost testu celého systému
   - fajn pro domain driven design bez přílišné složitosti
-  - fajn když potřebujeme ACID
+  - fajn když potřebujeme ACID (Atomicity, Consistency, Isolation, Durability) transakce
 
 - **Microservices**
   - cílem je vysoká nezávislost jednotlivých služeb, mohou být implementovány v různých programovacích jazycích
@@ -165,11 +169,11 @@ Pro vývoj rozsáhlých systémů se používají následující typy nástrojů
 ## Persistence, ORM
 
 - zabývá se uchováním dat mezi jednotlivými běhy aplikace/restarty systému/požadavky klienta
-  - **Relační databáze** - nejběžnější způsob uchovávání data v sw systémech. Data jsou strukturována do tabulek obsahující sloupce, řádek tabulky = datový záznam. Vztahy mezi daty se řeší relacemi, odkazy na primární kíč jiné tabulky. Pro manipulaci nad daty se využívá SQL (structured query language). (Postgres, MySql, Sqlite). Jsou široce podporovány v programovacích jazycích, je potřeba dávat pozor na sql injection (rust/sqlx). Při použití SQL v aplikacích se doporučuje použít Repository/DAO pattern, případně CQRS.
-  - **Objektově relační mapování (ORM)** umožňuje mapování objektového modelu aplikace na relační databázi. Výhodou je, že není nutné psát přímé SQL dotazy a kód je (měl by být) agnostický k použité databázi, může však vzniknout problém s neodstatečnou kontrolou nad dotazem/nutností tvorby specializovaných struktur/tříd. Složitější dotazy mohou být ve výsledku podobně komplikované, jako vlastní sql dotaz. Problém může působit i výkon (js\prisma, rust\diesel, java\hibernate)
+  - **Relační databáze** - nejběžnější způsob uchovávání dat v SW systémech. Data jsou strukturována do tabulek obsahující sloupce, řádek tabulky = datový záznam. Vztahy mezi daty se řeší relacemi, odkazy na primární kíč jiné tabulky. Pro manipulaci nad daty se využívá SQL (structured query language). (Postgres, MySql, Sqlite). Jsou široce podporovány v programovacích jazycích, je potřeba dávat pozor na sql injection (rust/sqlx). Při použití SQL v aplikacích se doporučuje použít Repository/DAO pattern, případně CQRS.
+  - **Object-relation Mapping (ORM)** umožňuje mapování objektového modelu aplikace na relační databázi. Výhodou je, že není nutné psát přímé SQL dotazy a kód je (měl by být) agnostický k použité databázi, může však vzniknout problém s neodstatečnou kontrolou nad dotazem/nutností tvorby specializovaných struktur/tříd. Složitější dotazy mohou být ve výsledku podobně komplikované, jako vlastní sql dotaz. Problém může působit i výkon (js\prisma, rust\diesel, java\hibernate)
   - **Souborový systém** - data je možné ukládat přímo do souborového systému. Toto je vhodné třeba pro obrázky/pdf, ale je potřeba ošetřit, abychom neposkytli přístup k jiným částem systému, než k jakým chceme.
   - **NoSQL** - alternativa k relačním db, umožňují ukládání a manipulaci s nestrukturovanými daty. Oproti relačním databázím poskytují lepší škálovatelnost a flexibilitu, problém může být konzistence (často se používá duplikaci pro vyšší rychlost) (mongodb, cassandra)
-  - **Cachování** -dočasné ukládání často používaných dat/výsledků operací. Lze provádět na úrovni RAM, před databází, před serverem... (redis, nginx)
+  - **Cachování** -dočasné ukládání často používaných dat/výsledků operací. Lze provádět na úrovni RAM, před databází, před serverem... (redis - pamet, nginx - proxy/network cache)
 
 ## Notes
 
@@ -181,9 +185,9 @@ Pro vývoj rozsáhlých systémů se používají následující typy nástrojů
 
 - umožňuje výměnu persistenční technologie, aniž by bylo třeba zasahovat do jiných vrstev
 - usnadňuje testování business logiky
-- obvykle jeden na entitu, CRUD
+- obvykle jeden na entitu, CRUD (Create, Read, Update, Delete) operace
 
-**DTO a.k.a. Value Object** - data transfer object, zapouzdřuje data pro komunikaci mezi vrstvami
+**DTO (Data Transfer Object)** - data transfer object, zapouzdřuje data pro komunikaci mezi vrstvami
 
 **Inversion of Control** - struktura má pole (třeba connection pool), které používá pro své fungování (závisí na něm). Nemá si pole tvořit sama, naplnit ho z parametru konstruktoru/jiným způsobem.
 
@@ -191,9 +195,9 @@ Pro vývoj rozsáhlých systémů se používají následující typy nástrojů
 
 **Aspect Oriented Programming** - technika, kde se definuje aspekt, který je volán pokaždé definované akci. E.g. pro logování - aspekt je definován jednou a je řečeno, že se má provádět pro všechny metody. Není nutné upravit každou metodu, aby explicitně logovala.
 
-**Software as a service**, **Platform as a service** (staráme se jen o vývoj, vše ostatní zajišťuje služba, e.g. Heroku), **Infrastructure as a service** (pronajímáme si infrastrukturu, e.g. klasický cloud, AWS, azure, gcp...)
+**Software as a service (SaaS)**, **Platform as a service (PaaS)** (staráme se jen o vývoj, vše ostatní zajišťuje služba, e.g. Heroku), **Infrastructure as a service (IaaS)** (pronajímáme si infrastrukturu, e.g. klasický cloud, AWS, azure, gcp...)
 
-**CORS** - zabraňuje, aby skript z prohlížeče komunikoval se serverem odjinud, než z webové aplikace. E.g. pokud z klienta SPA myweb.com chci poslat asynchronní dotaz (pomocí fetch API) na other.com, tak pokud other.com explicitně nepovolí přístup, prohlížeč můj požadavek neodešle.
+**CORS (Cross-origin Resouce Sharing)** - zabraňuje, aby skript z prohlížeče komunikoval se serverem odjinud, než z webové aplikace. E.g. pokud z klienta SPA myweb.com chci poslat asynchronní dotaz (pomocí fetch API) na other.com, tak pokud other.com explicitně nepovolí přístup, prohlížeč můj požadavek neodešle.
 
 **Message queue** - namísto synchronního zpracování je možné použít message queue (používá se často interně v distribuovaných systémech, není nutné okamžité zpracování, usnadňuje load balancing, je možný broadcast, zprávy mohou být persisted, ...) (apache kafka - byť je spíš event broker, rabbit mq).
 Možné problémy:
@@ -216,7 +220,7 @@ Queue (musí se doručit aspoň jednomu) vs Topic (publisher-subscriber model).
 
 ### REST (Representational State Transfer)
 
-- nejpoužívanější styl/způsob tvorby rozhraní webových aplikací (ne protokol), vychází z HTTP, požadavek má syntax `<metoda> <uri>`
+- nejpoužívanější styl/způsob tvorby rozhraní webových aplikací (nejedna se o protokol), vychází z HTTP, požadavek má syntax `<metoda> <uri>`
 - zdroje identifikovány URI, mohou mít různou podobu (JSON, XML, HTML, PNG...)
 - užívá HTTP metod
   - **GET** - pro získání dat
