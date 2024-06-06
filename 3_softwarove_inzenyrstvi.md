@@ -2,7 +2,7 @@
 
 > Životní cyklus SW, proces vývoje a řízení softwarového vývoje. Metodika (Rational) Unified Process (UP, RUP), agilní metodiky a principy agilního vývoje SW. Nasazení a provoz softwarových systémů. Údržba softwarových systémů, znovupoužitelnost. Příklady z praxe pro vše výše uvedené. [PA017](https://is.muni.cz/auth/el/fi/podzim2020/PA017/um/cz/)
 
-## Životní cyklus sw, proces vývoje a řízení softwarového vývoje
+## Životní cyklus SW, proces vývoje a řízení softwarového vývoje
 
 Vždy nějakým způsobem obsahuje fáze analýza, návrh, implementace, testování a provoz (včetně nasazení). Rozdíly jsou v tom, zda a jakým způsobem dělíme projekt na uchopitelnější části. Důsledkem toho jsou i různé způsoby, jakým se vývoj řídí.
 
@@ -22,7 +22,7 @@ Existuje několik základních modelů
       - tvorba systému dle návrhu
     - **Testování**
     - **Provoz**
-  - i.e. nejprve sesbíráme všechny požadavky, pak sw jako celek postupně navrhneme, implementujeme, otestujeme a nasadíme
+  - i.e. nejprve sesbíráme všechny požadavky, pak SW jako celek postupně navrhneme, implementujeme, otestujeme a nasadíme
   - Výhody:
     - snadný na řízení
     - pokud vše jde hladce, je to nejlevnější způsob
@@ -39,7 +39,7 @@ Existuje několik základních modelů
   - Výhody:
     - Systém je dodáván po částech, celkové náklady jsou distribuovány
     - Není potřeba vytvářet velký tým, protože práce je dodávaná po částech
-    - Uživatel vidí systém v raných fázích projektu. Lze rychle reagovat na zpětnou vazbu uživatele
+    - Uživatel vidí systém v raných fázích projektu. Lze rychle reagovat na zpětnou vazbu uživatele/zakaznika
     - O nutnosti změny se dozvíme dříve a její zavedení bude levnější (není třeba vše překopávat, přidáme změnový inkrement)
   - Nevýhody:
     - Náklady na vývoj jsou vysoké kvůli dodávce systému po částech
@@ -48,6 +48,7 @@ Existuje několik základních modelů
 
 - **Spirála**
 ![spirala](img/20230607122950.png)
+  - in a way *zacyklený vodopád*
   - kombinace iterací a vodopádu, důraz na analýzu rizik
   - vývoj probíhá v cyklech, každý má několik fází
   - fáze
@@ -61,9 +62,10 @@ Existuje několik základních modelů
 
 - **Prototypování**
   - vytvoříme prototyp systému, abychom porozuměli, jakým způsobem chce zákazník systém používat a co od něj očekává
-  - po analýze prototypu ho zahodíme a začneme práci na reálném systému, využijeme vhodný model
+  - po analýze prototypu **prototyp zahodíme** a začneme práci na reálném systému, využijeme vhodný model
 
 - **Model výzkumník**
+  - Tomas Melicher type of model lulw
   - navrhni systém a implementuj ho. Vyhovuje? Super. Nevyhovuje? Zpět k návrhu/implementaci
   - nelze pořádně řídit, neexistuje dokumentace, řešitelé jsou obtížně nahraditelní, jde o experimentování
 
@@ -76,15 +78,17 @@ Hlavní metodiky řízení sw projektů jsou **prediktivní metodiky (e.g. RUP)*
 
 ## Metodika (Rational) Unified Process (UP, RUP)
 
-- rigidní, důraz na procesy
+- rigidní, **důraz na procesy**
+- TLDR; **DIAGRAMY NA VSECHNO**
 - vhodná, pokud máme jasné a pevné požadavky, variabilní aspekty mohou být čas a zdroje
 - vyžaduje podstatné plánování předem
+  - sounds like game dev to me
 - iterativní a inkrementální, jednotlivé aktivity (plánování, požadavky, modelování, návrh, vývoj, testování, nasazení..) se částečně překrývají
 - řízena riziky, use-case požadavky
 - architektura je středobodem - existuje architektonický tým, se kterým ostatní týmy konzultují případné nejasnosti/problémy, slouží jako centrální komunikační uzel (lepší, než kdyby spousta dev týmů komunikovala navzájem)
 - umožňuje pevnou kontrolu nad procesy a týmem
 - vhodná, pokud potřebujeme pořádnou dokumentaci (UML diagramy)
-- hodí se pro velké a heterogenní produkty, velké týmy...
+- hodí se pro velké a heterogenní produkty, velké týmy, ...
 - Výhody:
   - zákazník není při vývoji potřeba, definice produktu je zakotvena v kontraktu (přesně ví, co dostane)
 - Nevýhody
@@ -92,7 +96,7 @@ Hlavní metodiky řízení sw projektů jsou **prediktivní metodiky (e.g. RUP)*
     - v reálu se deadline a rozpočet může lehce měnit v závislosti na vývoji
   - změnové požadavky jsou problém
   - potřeba více času k plánování
-  - složitý kontrakt, je třeba myslet na všechno (exhaustive kritéria přijetí, penále...)
+  - složitý kontrakt, je třeba myslet na všechno (exhaustive kritéria přijetí, penále, ...)
 
 ![UP](img/20230523215135.png)
 
@@ -131,11 +135,11 @@ Hlavní metodiky řízení sw projektů jsou **prediktivní metodiky (e.g. RUP)*
   - **Deployment**
     - deployment diagram
 
-RUP je konkrétní metodika stavějící na UP (přidává třeba jednotlivé role a odpovědnosti v týmu, konkrétní postupy...), UP je obecný rámec
+**RUP je konkrétní metodika** stavějící na UP (přidává třeba jednotlivé role a odpovědnosti v týmu, konkrétní postupy...), **UP je obecný rámec**
 
 ## Agilní metodiky a principy agilního vývoje SW
 
-- flexibilní, důraz na lidi
+- **flexibilní**, důraz na lidi
 - radši budeme reagovat na změnu, než se pevně držet plánu
 - snažíme se fixovat čas a zdroje, proměnlivá může být funkcionalita (*Postavili jsme dům a plot, v rozpočtu zbývají zdroje na garáž, nebo bazén. Co z toho chcete?*)
 - vhodná, pokud se požadavky mění, není jasná kýžená výsledná podoba systému, nebo zákazník požaduje něco hmatatelného relativně brzo
@@ -160,9 +164,9 @@ RUP je konkrétní metodika stavějící na UP (přidává třeba jednotlivé ro
 - vhodný pro menší týmy (<=15 lidí)
 - hodí se, když máme tým schopný samostatnější práce, potřebujeme rychle vytvořit aspoň nějaký produkt
 
-- role
+- role (3)
   - **product owner** - reprezentuje stakeholdery, má největší přehled o požadavcích na produkt, spravuje product backlog
-  - **scrum master** - zodpovědný za dodržování scrumu, řeší procesy
+  - **scrum master (OPTIONAL)** - zodpovědný za dodržování scrumu, řeší procesy
   - **tým vývojářů** - 3-9 lidí, soběstačný (má lidi na všechno) a sebeorganizující se, spravují sprint backlog, zodpovědný za doručení produktu
 
 - artefakty
@@ -191,9 +195,10 @@ RUP je konkrétní metodika stavějící na UP (přidává třeba jednotlivé ro
       - bylo by nutné zrušit celý sprint product ownerem
     - spravován týmem vývojářů
   
-  - **product increment**
+  - **product increment (OPTIONAL)**
+    - a.k.a. sprint goal
     - všechny předměty product backlogu, které se splní během sprintu (a.k.a. to, co se za sprint stihne/udělá)
-    - tvořen týmem vývojářů, testován zákazníkem, může být released product ownerem
+    - tvořen týmem vývojářů, testován zákazníkem (blbost), může být released product ownerem (blbost)
     - je nutné, aby byl použitelný a byl splněn (dle definice scrum týmu)
 
 - události
@@ -202,13 +207,13 @@ RUP je konkrétní metodika stavějící na UP (přidává třeba jednotlivé ro
     - tvorba product backlogu
     - výběr klíčových strategií (komunikace, rizika, řízení změn, kvalita...)
   - **sprint planning**
-    - probíhá na začátku sprintu, cca 8 hodin
-    - účastní se celý scrum tým
+    - probíhá na začátku sprintu, cca 8 hodin (blbost)
+    - účastní se celý scrum tým (blbost)
     - vytyčuje se cíl nadcházejícího se sprintu (a.k.a. co chceme udělat), vybíráme věci z product backlogu a přiřazujeme jim tasky
   - **sprint**
     - iterace soustředěná na vývoj funkcionality v spring backlogu, cílem je vytvořit použitelný a potenciálně vydatelný product increment
     - pracuje na něm celý scrum team
-    - product owner řeší komunikaci, vývojáři vývojaří, scrum master sleduje dodržování procesů
+    - product owner řeší komunikaci, vývojáři vývojaří, scrum master sleduje dodržování procesů -> scrum master dela hovno
     - analýza, návrh, implementace, testování
     - max 1 měsíc, všechny sprinty trvají stejnou dobu
     - po sprintu sledujeme [team velocity](./3_softwarove_inzenyrstvi.md#team-velocity), podle ní máme lepší odhad pro budoucí plány, lze podle ní upravit rozsah sprint backlogu
@@ -216,14 +221,14 @@ RUP je konkrétní metodika stavějící na UP (přidává třeba jednotlivé ro
     - 15 minut každý den, účastní se vývojáři a možná i scrum master
     - co jsem dělal včera, co budu dělat dneska, narazil jsem na nějaké problémy?
   - **sprint review**
-    - 4 hodiny, účastní se celý scrum team a klíčoví stakeholdeři (e.g. zákazník, uživatel)
+    - 4 hodiny (blbost), účastní se celý scrum team a klíčoví stakeholdeři (e.g. zákazník, uživatel)
     - proběhne předvedení inkrementu
     - proberou se případné problémy, změny, odpovídá se na případné otázky stakeholderů
     - proberou se případné změny product backlogu
     - případně se přepočítá předpokládané datum dokončení
     - probere se, co by se mělo dělat dál, upraví se priorita/pořadí v product backlogu
   - **sprint retrospective**
-    - 3 hodiny, účastní se scrum team
+    - 3 hodiny (blbost), účastní se scrum team
     - řeší se procesy - rozložení práce, splnil se cíl, je třeba něco upravit?
     - řeší se vztahy - klapalo to? potřebuje někdo užší spolupráci?
     - řeší se nástroje - dobrá komunikace? dostatečná transparentnost?
@@ -231,7 +236,7 @@ RUP je konkrétní metodika stavějící na UP (přidává třeba jednotlivé ro
     - co nefungovalo, co můžeme zlepšit
     - ideálně se vymyslí jedno zlepšení procesů, které se v příštím sprintu bude používat
     - případně se upraví klíčové strategie, rizika
-  - **project retrospective**
+  - **project retrospective (blbost) OPTIONAL**
     - uzavření projektu s týmem
     - řešíme lessons learned, co se povedlo, nepovedlo...
     - poděkujeme všem
@@ -274,10 +279,10 @@ Viditelný celému týmu, na jednotlivých lístcích tasků je vidět i zpracov
 
 - před nasazením je důležité systém otestovat v prostředí, které bude co nejbližší tomu produkčnímu
 - klíčové je v provozu logování událostí (abychom v případě chyby věděli, co se v systému dělo), monitoring, systém zpětné vazby
-- nasazení zahrnuje přípravu prostředí (instalace os, databází...), lze automatizovat/zjednodušit použitím Platform as a Service, případně kubernetes
+- nasazení zahrnuje přípravu prostředí (instalace os, databází...), lze automatizovat/zjednodušit použitím Platform as a Service, případně Kubernetes (ok?)
 - před nasazením do provozu je fajn projít a zkontrolovat dokumentaci, která může být kvůli vývoji neaktuální
 - součástí nasazení je i školení uživatelů, abychom předešli neúspěchu z důvodu neochoty/neznalosti používání
-- součástí nasazení může být i customizace systému pro specifické potřeby zákazníka (pokud to náš systém umožňuje)
+- součástí nasazení může být i customizace systému (pozor na configuration hell) pro specifické potřeby zákazníka (pokud to náš systém umožňuje)
 
 ## Údržba softwarových systémů, znovupoužitelnost
 
@@ -290,8 +295,8 @@ Viditelný celému týmu, na jednotlivých lístcích tasků je vidět i zpracov
   - souhrn defektů
   - kauzální analýza - analýza odchylek výkonu u použitého procesu (jak a proč)
   - použité technologie a jejich hodnocení
-  - popsat v dokumentu tým a jednotlivce, na které je možné se případně obrátit (třeba když se řeší problém v dalším projektu)
-  - aktiva procesu - co vzniklo a může být použito i v jiných projektech (třeba knihovny, checklisty...)
+  - popsat v dokumentu tým a jednotlivce, na které je možné se případně obrátit (třeba když se řeší problém v dalším projektu) - knowledge matrix
+  - aktiva procesu - co vzniklo a může být použito i v jiných projektech (třeba knihovny, checklisty, ...)
 - údržba se může dělat jako samostatný projekt, mohou na to být specializované týmy
 - řeší se oprava (i bezpečnostních) chyb, aktualizace a vylepšení (ideálně nějakým způsobem automatizované, ale může být fajn potvrzení uživatele), správu změn (co se jak a proč změnilo)
 - znovupoužitelnost se obvykle řeší v rámci jednotlivých služeb/programů/komponent, ale ne znovupoužitím struktur mezi různými projekty (pokud nejde o specializovanou knihovnu) - mohli bychom mít problém v případě změny
