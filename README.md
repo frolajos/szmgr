@@ -43,7 +43,7 @@ Sepsáno na základě přednášek, osobních zkušeností, praxe, a samozřejm�
    - [ ] Relational algebra, integrity constraints, transaction control.
    - [ ] Indexing, hashing.
    - [ ] Practical examples for all of the above.
-6. [Computer networks](./6_pocitacove_site.md) (**PA159**, PA191)
+6. [Computer networks](./6_pocitacove_site.md) (**PA159**, PA191) - IMPORTANT
    - [ ] Concepts, principles, architectures.
    - [ ] ISO/OSI and TCP/IP model, IP protocol, transport protocols (TCP, UDP).
    - [ ] Network layer protocols, IPv4 features, advanced IPv6 features.
@@ -73,7 +73,7 @@ Sepsáno na základě přednášek, osobních zkušeností, praxe, a samozřejm�
    - [ ] Big data analytics, languages for implementing analytic tasks, database-level analytics.
    - [ ] Advanced data processing techniques, performance aspects of big data processing.
    - [ ] Practical examples for all of the above.
-3. [Secure Code](./dev_3_bezpecny_kod.md) (**PV157**, PA193, PV276, **PV017**)
+3. [Secure Code](./dev_3_bezpecny_kod.md) (**PV157**, PA193, PV276, **PV017**) - IMPORTANT
    - [ ] Authentication and access control methods.
    - [ ] Biometric authentication methods, their implications and problems.
    - [ ] Electronic signature and its use.

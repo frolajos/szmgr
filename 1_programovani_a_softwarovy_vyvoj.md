@@ -251,24 +251,18 @@ Některé REST metody jsou kešovatelné, v komunikaci mohou být prostředníci
 - aktuálně je preference pracovat s JSON
 - používání správných HTTP návratových hodnot
 
-#### HATEOAS (Hypermedia as the engine of application state)
+#### HATEOAS (Hypermedia As The Engine Of Application State)
 
 - jakýkoliv zdroj (URI) vrácený serverem může být předmětem další komunikace
-- k entitám přidáváme href
+- k entitám (napr. do response) přidáváme href
+- sounds like bs to me (overengineering)
 
-#### WSDL (web services definition language)
+#### WSDL (Web Services Definition Language)
 
 - standardizovaný způsob popisu rozhraní webových služeb (jméno, lokaci, podporované protokoly, operace, formát zpráv..), používá se se SOAP
+![WSDL](./img/wsdl.png)
 
-#### SOAP (simple object access protocol)
+#### SOAP (Simple Object Access Protocol)
 
-- komunikační protokol pro web services, umožňuje výměnu dat, vzdálená volání funkcí
+- komunikační protokol pro web services, umožňuje výměnu dat, vzdálená volání funkcí (RPC - Remote Procedure Call)
 - slouží jako jednotná vrstva mezi službami (aktuálně se používá spíš gRPC)
-
-#### Java specifické věci
-
-**Servlety** jsou komponenty umožňující zpracování požadavků a zaslání odpovědi (a.k.a. **handler**).
-
-**Java Web Containers** poskytují servletům runtime a starají se o další věci (e.g. sessions), může v nich běžet vícero web aplikací ve WAR (web archive). Alternativně je možné použít lehčí variantu, e.g. spring boot
-
-**Java Server Pages** umožňují psát javu do html (server-side), obdobně jako php

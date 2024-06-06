@@ -41,7 +41,7 @@ Dobrý/dobře specifikovaný požadavek
 
 Obecně platí, že čím později se požadavek změní, tím nákladnější bude jeho implementace.
 
-Požadavky se modelují pomocí **use case diagramu**, uchovávají se v **use case dokumentu** (forma: id, jméno, actor(s), popis, trigger, pre/post conditions, příklad typického flow, priorita, výjimky, častost používání...). Požadavky jsou také formalizovány v jednoduché formě pomocí **user stories** - krátké, výstižné popisy (As `role` I want to `akce` So I can `zdůvodnění`), srozumitelní zákazníkovi (+ obsahují akceptační kritéria, prioritu, story pointy...).
+Funkcni požadavky se modelují pomocí **use case diagramu**, uchovávají se v **use case dokumentu** (forma: id, jméno, actor(s), popis, trigger, pre/post conditions, příklad typického flow, priorita, výjimky, častost používání...). Požadavky jsou také formalizovány v jednoduché formě pomocí **user stories** - krátké, výstižné popisy (As `role` (kdo) I want to `akce` (co) So I can `zdůvodnění` (proc)), srozumitelní zákazníkovi (+ obsahují akceptační kritéria, prioritu, story pointy...).
 
 Pro **určení priority požadavku** lze použít například:
 
@@ -53,7 +53,7 @@ Non-functional requirements platí vždy, je třeba je brát v potaz i s nově p
 
 ## Softwarové architektury, komponentové systémy
 
-Sw architektura určuje, jakým způsobem je systém strukturován, jakým způsobem je dělen na komponenty/moduly a jak mezi sebou jednotlivé komponenty/moduly interagují a jak jsou jednotlivé části systému nasazeny na hw.
+SW architektura určuje, jakým způsobem je systém strukturován, jakým způsobem je dělen na komponenty/moduly a jak mezi sebou jednotlivé komponenty/moduly interagují a jak jsou jednotlivé části systému nasazeny na hw.
 
 SW architektury (vyšší úroveň abstrakce) a architektonické vzory (nižší úroveň abstrakce) jsou obecná řešení architektur systému. Uvádím jen seznam, podrobně jsou popsány v [části otázky 1](./1_programovani_a_softwarovy_vyvoj.md#základní-koncepty-softwarových-architektur-z-pohledu-implementace-vícevrstvá-architektura-moderních-informačních-systémů-architektura-model-view-controller)
 
@@ -64,7 +64,7 @@ SW architektury (vyšší úroveň abstrakce) a architektonické vzory (nižší
 - **Microkernel**
 - **Pipes and filters**
 - **Blackboard** - tabule je sdílená, jsou na ní data. Výpočetní agenti k tabuli přistupují a zpracovávají  data dle svých interních strategií. Klient následně vybere agenta, který přišel s nejlepším řešením, na základě čehož se aktualizují data na tabuli. Nedeterministický výpočet. e.g. použití různých algoritmů u kterých nevíme, jaký je nejlepší.
-- **SOA**
+- **SOA (Service-oriented Architecture)** - na pul cesty mezi monolitem a mikroservisama
 - **Microservices**
 
 Komponenty jsou spustitelné softwarové jednotky, která mají definované komunikační rozhraní, do vnitřního fungování nevidíme/nezajímá nás. Komponent by měl poskytovat logicky související funkcionalitu, funguje jako vrstva abstrakce. Komponenty mohou být vyvíjeny nezávisle na jiných komponentech, jsou nahraditelné (stačí splnit rozhraní a jeho kontrakt), znovupoužitelné. Komponenty mohou mít vnitřní stav, ten však může dělat problém u škálování (paralelizací komponentů), mohou být asynchronní, mohou se interně skládat z dalších komponentů...
@@ -244,17 +244,17 @@ E.g. serde
 
 ## Rozhraní komponent, kontrakty na úrovni rozhraní, OCL
 
-Aby mohl komponent komunikovat se svým okolím (být volán a případně vracet data), potřebuje nějaké veřejné rozhraní, kterému se říká **signatura**. Skládá se z poskytovaných operací (funkcí/metod) a jejich vstupních a výstupních parametrů.
+Aby mohla komponenta komunikovat se svým okolím (být volána a případně vracet data), potřebuje nějaké veřejné rozhraní (interface), kterému se říká **signatura**. Skládá se z poskytovaných operací (funkcí/metod) a jejich vstupních a výstupních parametrů.
 
 U rozhraní nás zajímají i další omezení, které mohou upravovat (správné) používání rozhraní (*e.g. uživatel se může registrovat jen jednou*). Signatuře a omezení se souhrnně říká **kontrakt**. Kontrakt popisuje poskytnutou funkcionalitu za předpokladu, že dodržíme předem stanovené podmínky.
 
 Součástí kontraktu (v kontextu struktur/objektů) můžou být:
 
-- **preconditions** - co musí platit před vyvoláním dané metody, aby metoda proběhla správně (e.g. máme dost peněz na účtu)
-- **postconditions** - co musí platit po skončení dané metody, i.e., co metoda poskytuje (e.g. proběhne platba, z účtu se nám odečte příslušná platba)
-- **invariants** - co vždy musí platit, váže se obvykle k objektům, nejen metodám (e.g. na debetním účtu není možné jít do mínusu)
+- **preconditions** - co musí platit **před** vyvoláním dané metody, aby metoda proběhla správně (e.g. máme dost peněz na účtu)
+- **postconditions** - co musí platit **po** skončení dané metody, i.e., co metoda poskytuje (e.g. proběhne platba, z účtu se nám odečte příslušná platba)
+- **invariants** - co musí platit **vždy**; váže se obvykle k objektům, nejen metodám (e.g. na debetním účtu není možné jít do mínusu)
 
-**OCL (Object Constraint Language)** je deklarativní jazyk, který umožňuje popis kontraktů a jejich constraintů (omezení domén hodnot), včetně jejich zavedení do UML, a může být použit i pro jejich vynucování (e.g. generování kódu na základě kontraktu popsaného v komentáři/anotacích (v Javě `@`)).
+**OCL (Object Constraint Language)** je deklarativní jazyk, který umožňuje popis kontraktů a jejich omezeni (omezení domén hodnot), včetně jejich zavedení do UML, a může být použit i pro jejich vynucování (e.g. generování kódu na základě kontraktu popsaného v komentáři/anotacích (v Javě `@`)).
 
 Při definici kontraktů objektů s dědičností nesmíme porušit Liskov substitution principle, dědic může invarianty a postconditions pouze utahovat, ne je rozvolňovat (co platilo pro rodiče, musí platit i pro potomka). Naopak je to u preconditions, kde může dědic podporovat více vstupů než předek.
 
@@ -283,9 +283,9 @@ V OCL lze používat funkcionální přístup ke kolekcím (select, forAll...), 
 
 ## Modely softwarových systémů, jazyk UML
 
-Modely sw systémů popisují systém vždy z nějakého zjednodušeného pohledu (model je už z definice abstrakce). Různé modely se zabývají různými aspekty/fázemi vývoje systému. Důležité však je, aby byly modely systému vzájemně konzistentní. Obecně lze rozlišovat na modely popisující strukturu a modely popisující chování.
+Modely sw systémů popisují systém vždy z nějakého zjednodušeného pohledu (model je už z definice abstrakce). Různé modely se zabývají různými aspekty/fázemi vývoje systému. Důležité však je, aby byly modely systému vzájemně konzistentní. Obecně lze rozlišovat na modely **popisující strukturu** a modely **popisující chování**.
 
-**UML** je modelovací jazyk umožňující jednotný způsob vizualizace návrhu systému. Pro snadné verzování je fajn PlantUML (píšeme UML jako deklarativní kód, ze kterého generujeme příslušné diagramy).
+**UML (Unified Modeling Language)** je modelovací jazyk umožňující jednotný způsob vizualizace návrhu systému. Pro snadné verzování je fajn PlantUML (píšeme UML jako deklarativní kód, ze kterého generujeme příslušné diagramy).
 
 Příklad interface
 
@@ -308,6 +308,8 @@ Zahrnuje všechny (uživatelé i jiné systémy), kteří budou systém použív
 
 ### Conceptual class diagram
 
+- digram trid, ale punk
+
 Diagram tříd, ale neřešíme datové typy ani metody. Zajímají nás klíčové entity (struktury/třídy), jejich data plynoucí z požadavků, a vazby mezi entitami (kontext). Pomáhá ujasňovat terminologii.
 
 ### Class diagram
@@ -315,8 +317,8 @@ Diagram tříd, ale neřešíme datové typy ani metody. Zajímají nás klíčo
 Statická reprezentace systému ve formě tříd, zobrazuje jejich metody, atributy a vzájemnou provázanost. Vztahy mají kardinalitu
 
 **Asociace** - klasická šipka (nebo čára pro oboustranný vztah), popisuje vztah daných tříd
-**Agregace** - bílý kosočtverec, popisuje, že třída obsahuje jinou třídu (u ní je kosočtverec)
-**Kompozice** - černý kosočtverec, popisuje, že třída (s kosočtvercem) je nedílnou součástí jiné třídy
+**Agregace** - bílý kosočtverec, popisuje, že třída obsahuje jinou třídu (u ní je kosočtverec), kazda trida ma vlastni zivotnost
+**Kompozice** - černý kosočtverec, popisuje, že trida nemuze existovat bez tridy u niz je kosoctverec
 
 ![](img/20230608120634.png)
 
@@ -324,31 +326,31 @@ Statická reprezentace systému ve formě tříd, zobrazuje jejich metody, atrib
 
 ### Object diagram
 
-Zachycuje systém za běhu v určitém čase, zobrazuje konkrétní objekty a jejich vazby.
+**Zachycuje systém** za běhu **v určitém čase**, zobrazuje konkrétní objekty a jejich vazby.
 
 ![](img/20230608121047.png)
 
 ### Activity diagram
 
-Popisuje workflow systému/komponentu (dle úrovně abstrakce), jednoduchý na pochopení i pro zákazníka.
+Popisuje **workflow** systému/komponentu (dle úrovně abstrakce), jednoduchý na pochopení i pro zákazníka.
 
 ![](img/20230609000854.png)
 
 ### Sequence diagram
 
-Popisuje interakce v čase mezi jednotkami (třídami/komponenty/actory) systému
+Popisuje **interakce v čase** mezi jednotkami (třídami/komponenty/actory) systému
 
 ![](img/20230609001314.png)
 
 ### Deployment diagram
 
-Popisuje jednotlivé komponenty systému a jejich komunikační toky, včetně použitých technologií.
+Popisuje jednotlivé komponenty systému a jejich **komunikační toky**, včetně použitých technologií.
 
 ![](img/20230609001416.png)
 
 ### Component diagram
 
-Popisuje komponenty a jejich kompozici v sýstému.
+Popisuje komponenty a jejich **kompozici v sýstému**.
 
 Třídní/lollipop notace
 
@@ -360,22 +362,23 @@ Komunikační rozhraní koponentů se nazývají porty, přímé spoje connector
 
 ## Notes
 
-**Verifikace vs validace** - validace ověřuje, že náš model odpovídá požadavkům, verifikace ověřuje, že naše implementace odpovídá našemu modelu, že je implementace kvalitní. E.g. u mostu by se validovalo, že je postavený v místě, kde je potřeba. Verifikovalo by se, že je postavený správně.
+**Verifikace vs validace**
+
+- validace ověřuje, že náš model odpovídá požadavkům
+  - = splneni pozadavku
+- verifikace ověřuje, že naše implementace odpovídá našemu modelu, že je implementace kvalitní.
+  - = spravnost implementace
+
+E.g. u mostu by se validovalo, že je postavený v místě, kde je potřeba. Verifikovalo by se, že je postavený správně.
 
 **Motivace objektových metod/návrhových vzorů** - Systémy bývají složité, špatně se udržují a je náročné měřit/zajistit kvalitu, často se mění nároky
 => pomůže dekompozice systému do menších koherentních částí, které se lépe udržují/mění, snadněji se měří kvalita
 
 Dekompozice podle [SOLID](./2_kvalita_kodu.md#solid-principy)
 
-- single responsibility - každý modul/třída/funkce by se měly soustředit pouze na jednu část funkcionality (a tu zapouzdřovat)
-- open/closed - každý modul/třída/(funkce) by měly být rozšiřitelné i.e. přidání změn způsobí minimální modifikaci kódu, většinou rozšiřujeme pomocí nových tříd/metod
-- liskov substitution - každý (dědičně) nadřazený objekt by měl být nahraditelný podřazeným objektem, aniž by byl narušen původní kontrakt. E.g. nemůžeme vyhodit výjimku, když to nadřazený nikdy nedělal. Nemužeme brát u stejné metody konkrétnější argument, než jaký bere nadřazený objekt (je v pohodě brát abstraktnější). Nemůžeme vracet abstraktnější typ, než jaký vrací nadřazený. Je v pohodě přidávat funkcionalitu ve formě dalších metod.
-- interface segregation - rozbíjíme velká rozhraní na menší, logicky související jednotky. Jen to, co klient opravdu může potřebovat.
-- dependency inversion - závisíme na abstrakcích (rozhraní), ne na konkrétních implementacích
-
 **Problém s cyklickou vazbou objektů** - e.g. v metodě toString() je potřeba vhodně řešit, abychom se necyklili. Proto může být vhodnější definovat si pro takové případy speciální objekty s jasnou hierarchií a bez cyklů
 
-**Interface Definition Language** - popisuje rozhraní formou, která je nezávislá na použitém programovacím jazyce (e.g. OpenAPI Specification pro REST, protocol buffer pr gRPC, Web Service Definition Language pro SOAP, CORBA IDL). Obvykle je možné pomocí IDL schématu vygenerovat v daném programovacím jazyce kód/struktury, který poskytovatel implementuje a uživatel používá. Více v [otázce 7](./7_distribuovane_systemy.md).
+**Interface Definition Language (IDL)** - popisuje rozhraní formou, která je nezávislá na použitém programovacím jazyce (e.g. OpenAPI Specification pro REST, protocol buffer pro gRPC, Web Service Definition Language pro SOAP, CORBA IDL). Obvykle je možné pomocí IDL schématu vygenerovat v daném programovacím jazyce kód/struktury, který poskytovatel implementuje a uživatel používá. Více v [otázce 7](./7_distribuovane_systemy.md).
 
 **Event list** - seznam všech událostí, které mohou v systému nastat
 
@@ -385,7 +388,7 @@ Znázorňuje celý kontext (včetně částí, se kterými přímo nekomunikujem
 
 ![](img/20230607124544.png)
 
-### Analytické vzory
+### Analytické vzory (jebat)
 
 Návrhové vzory nabízí řešení na často řešené problémy v návrzích systému. Tato řešení jsou místy až příliš sofistikovaná, takže se doporučuje složitější návrhové vzory používat z rozvahou, abychom problém *neoverengineeringovali*.
 
