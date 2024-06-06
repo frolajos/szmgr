@@ -4,6 +4,8 @@
 
 ## Plánování
 
+= info o projektu (proč, co, kdo, kdy, jak, za kolik...) a klicove strategie (komunikace, rizika, kvalita, změny)
+
 Je třeba rozlišovat mezi
 
 - **Projekty**
@@ -36,15 +38,16 @@ Dále je potřeba u plánování projektů sepsat [Project Charter](./4_projekto
 
 ### Prediktivní plánování
 
-Sepisuje se **Project Initiation Documentation** obsahující detailní Business Case, veškeré informace o projektu (proč, co, kdo, kdy, jak, za kolik), definují se klíčové strategie (komunikace, rizika, kvalita, změny), vše se dokumentuje, vytváří se příslušné registry, vše se schvaluje product boardem (zástupci exekutivy, inženýrů a zákazníků). Do PID se pak zapisují i změny a průběh, aby bylo možné porovnat plán a realitu, je dostupný všem v rámci projektu.
+Sepisuje se **Project Initiation Documentation (PID)** obsahující detailní Business Case, veškeré informace o projektu (proč, co, kdo, kdy, jak, za kolik), definují se klíčové strategie (komunikace, rizika, kvalita, změny), vše se dokumentuje, vytváří se příslušné registry, vše se schvaluje product boardem (zástupci exekutivy, inženýrů a zákazníků). Do PID se pak zapisují i změny a průběh, aby bylo možné porovnat plán a realitu, je dostupný všem v rámci projektu.
 
 Dělá se detailní analýza požadavků, spousta Use case diagramů, detailní rozsah sloužící jako základ pro ocenění, design mockupy. Tvoří se **specifikační dokument** produktu - obsahuje požadavky, rozbití systému na komponenty (včetně detailního popisu až po pole vstupních formulářů), očekávanou kvalitu, akceptační kritéria.
 
-Dělá se **projektový plán** (proč, co, kdo, kdy, jak, za kolik...) - **Work Breakdown Structure** tvořená ze specifikačního dokumentu, počítá se čas a cena jednotlivých **Work Package**s (součást WBS, nejnižší jednotka) třeba pomocí [PERT](./4_projektove_rizeni.md#program-evaluation-and-review-technique-pert), jejich závislosti, tvoříme rozvrh (gantt/network diagram), přiřazujeme odpovědnosti (mělo by jít snadno najít aktivity člověka i všechny spojené s aktivitou).
-*WBS*
+Dělá se **projektový plán** (proč, co, kdo, kdy, jak, za kolik...) - **Work Breakdown Structure (WBS)** tvořená ze specifikačního dokumentu, počítá se čas a cena jednotlivých **Work Package**s (součást WBS, nejnižší jednotka) třeba pomocí [PERT](./4_projektove_rizeni.md#program-evaluation-and-review-technique-pert), jejich závislosti, tvoříme rozvrh (gantt/network diagram), přiřazujeme odpovědnosti (mělo by jít snadno najít aktivity člověka i všechny spojené s aktivitou).
 ![WBS](img/20230526000518.png)
 
 ## Řízení rizik  - PV017
+
+TODO: mam pocit, ze tady chybi info, projit s materialama
 
 Postup:
 
@@ -54,7 +57,7 @@ Postup:
     - každé riziko způsobí náklady, můžeme pro něj odhadnout cenu
     - každému přiřadíme pravděpodobnost a kritičnost dopadu, určíme následky
     ![ohodnoceni rizik](img/20230525214112.png)
-3. Určení odezev na rizika, možnosti:
+3. Určení odezvy na rizika, možnosti:
     - akceptuj - no tak se to stane, no, nevadí, náklady na prevenci by byly vyšší než samotné riziko
     - vyhni se - nastavení plánu, aby problém nemohl nastat (e.g. použití jiné technologie, která tento problém nemá)
     - přesuň (třeba na někoho jiného) - e.g. tento komponent outsourcujeme se solidním SLA, nebo se pojistíme
@@ -80,8 +83,8 @@ Prevence:
 
 - **Transparence a zpětná vazba**, abychom předešli nedorozumění v týmu
 - **Používání user stories** - jsou snadno pochopitelné pro zákazníka, dají se dobře ověřovat
-- **Jasná definice, co znamená "hotovo"**
-- **Krátké iterace** - brzo zjistíme, co je případně blbě
+- **Jasná definice, co znamená "hotovo"** -> **definition of done**
+- **Krátké iterace** - brzo zjistíme, co je případně blbě, IMO neni pravda, ale OK
 
 ## Role modelů v projektovém řízení
 
@@ -95,10 +98,11 @@ Dále je možné modelovat procesy (komunikace), finance, rizika... a na těchto
 ## Ganttovy diagramy
 
 - nástroj pro plánování (nejen) projektů
+
 V základu toto:
 ![gantt](img/20230525192847.png)
 
-    ale lze rozšířit...
+ale lze rozšířit...
 
 - y osa obsahuje úlohy (případně zdroje)
 - x osa zobrazuje čas
@@ -130,6 +134,8 @@ Metoda pro identifikaci vzájemně závislých aktivit, které mají vliv (jsou 
 - v druhém průchodu jdeme konec => start, řešíme latest completion/start time. Když vedou 2 z 1, bereme minimum těch 2.
 - kritická cesta obsahuje aktivity, které mají earliest & latest finish time identický
 - slack/float udává, o kolik můžeme danou aktivitu opozdit, aniž by došlo ke zpoždění projektu (`latest completion time - earliest completion time`)
+- EF = early finish, ES = early start, LF = latest finish, LS = latest start
+- kriticka cesta jsou ty, kde `EF = LF` a `ES = LS`
 
 ![CPM](img/20230526101347.png)
 
@@ -150,13 +156,20 @@ Pokud máme informace o úrovni platů implementátorů tasků, můžeme dopoč�
 
 ### PMI Project Management Body of Knowledge (PMBOK)
 
+- **cheatsheet pro projektové manažery**
+- PMI = Project Management Institute (americka neziskovka)
 - **procesně orientovaný** standard, podrobně popsaná sada good practices
 - snadno se používá jako handbook pro vhodné znalostní oblasti a nástroje/techniky při životním cyklu projektu
 - vhodný, když
   - manažer potřebuje tipy na nástroje a techniky, jaké by měl použít, ale aspoň trochu tuší co a jak
 
-- 49 procesů (série aktivit s definovanými vstupy, výstupy, nástroji a technikami) dělených do
-  - 5 procesních skupin, logické dělení procesů podle fází (inicializace, plánování, provedení, monitoring a řízení, uzavírání)
+- **49 procesů** (série aktivit s definovanými vstupy, výstupy, nástroji a technikami) dělených do
+  - 5 procesních skupin = logické dělení procesů podle fází:
+    - inicializace
+    - plánování
+    - provedení
+    - monitoring a řízení
+    - uzavírání
   - 10 vědomostních oblastí/disciplín projektového managementu, každá má vlastní procesy
     - Integrace
       - tvorba **Project Charter**u
@@ -165,9 +178,9 @@ Pokud máme informace o úrovni platů implementátorů tasků, můžeme dopoč�
         - **Stakeholders (kdo)** - externí i interní, řešíme jejich role, potřeby, zapojení a odpovědnosti
         - **Management approach (jak)** - popis použitých standardů, nástrojů, metodik, životního cyklu projektu...
         - **Schedule (kdy)** - hrubý plán projektu, fáze, milestones, Ganttův diagram..
-    - Rozsah (scope) - sesbírání požadavků, definice, validace a řízení rozsahu funkcionalit systému, tvorba Work Breakdown Structure
+    - Rozsah (scope) - sesbírání požadavků, definice, validace a řízení rozsahu funkcionalit systému, tvorba WBS
     - Plán - definice a určení pořadí aktivit, odhady časů aktivit, tvorba a řízení plánu
-    - Cena - odhad cen a rozpočtu aktivit nebo jednotek práce pomocí Work Breakdown Structure, řízení ceny a rozpočtu
+    - Cena - odhad cen a rozpočtu aktivit nebo jednotek práce pomocí WBS, řízení ceny a rozpočtu
     - Kvalita - plánování, řízení a kontrola kvality
     - Zdroje - odhad nepeněžních a lidských zdrojů, jejich získávání a řízení, tvorba a správa týmů
     - Komunikace - plán, správa a kontrola komunikace a informací o projektu
@@ -177,6 +190,7 @@ Pokud máme informace o úrovni platů implementátorů tasků, můžeme dopoč�
 
 ### PRINCE 2 (PRojects IN Controlled Environment)
 
+- **kucharka pro projektové manažery**
 - standard pro řízení obecného projektu
 - předepsaný postup, krok za krokem (spousta formulářů na vyplňování, checklisty)
 - součástí není správa požadavků, rozpočtování
@@ -189,7 +203,7 @@ Pokud máme informace o úrovni platů implementátorů tasků, můžeme dopoč�
 - fáze (hrubě odpovídá UP inception, elaboration, construction a transition)
   - **Starting up**
     - tvorba **Project brief**
-      - řešíme feasibilitu, zachycujeme klíčové požadavky, rizika
+      - řešíme proveditelnost, zachycujeme klíčové požadavky, rizika
       - popis významných požadavků s dopadem na architekturu
       - identifikace actorů
       - identifikace dalších systémů, se kterými máme komunikovat
@@ -198,7 +212,7 @@ Pokud máme informace o úrovni platů implementátorů tasků, můžeme dopoč�
       - určení použitých technologií
       - určení orientační ceny, časového plánu a rizik
     - plán další fáze
-      - **Work Breakdown Structure**
+      - **WBS**
       - identifikace aktivit, dependencí
       - odhad trvání aktivit, stanovení milestones
       - definice rolí a odpovědností
@@ -280,9 +294,9 @@ Specifika IT projektů v porovnání s většinou průmyslových odvětví
 
 - nepřesné/neznámé, časté a měnící se požadavky
 - větší nutnost přizpůsobení produktu
-- velká složitost
+- velká **složitost**
 - náročné testování
-- neustálý a rapidní vývoj technologií
+- neustálý a **rapidní vývoj technologií**
 - možnost globální spolupráce
 - projekty mohou v rámci portfolia ovlivnit ostatní projekty (zvlášť při selhání)
 - nutnost řízení rizik

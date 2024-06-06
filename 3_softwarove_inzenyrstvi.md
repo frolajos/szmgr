@@ -102,7 +102,7 @@ Hlavní metodiky řízení sw projektů jsou **prediktivní metodiky (e.g. RUP)*
 
 - iterace jsou seskupovány do fází
   - **Inception** (1 iterace)
-    - řešíme feasibilitu, zachycujeme klíčové požadavky, rizika
+    - řešíme proveditelnost, zachycujeme klíčové požadavky, rizika
     - popis významných požadavků s dopadem na architekturu
     - identifikace actorů
     - identifikace dalších systémů, se kterými máme komunikovat
