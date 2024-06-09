@@ -56,6 +56,7 @@ Autentizace může proběhnout na základě výzvy, nebo klidně z iniciativy su
   - jednorázová - jdou odděleným kanálem, obvykle součástí vícefaktorové autentizace, prokazujeme vlastnictví dalšího tokenu
 - ukládají se [hašovaná](./5_databaze.md#hašování) (pokud nepotřebujeme získat původní heslo), ideálně včetně soli a pepře, nebo šifrovaná (problém je, že teď musíme chránit místo hesla šifrovací klíč), nikdy ne v plaintextu
   - **salt** - náhodně vygenerovaná data, která se ukládají zároveň s hašem a při hašování se přidávají k heslu, efektivně prodlužuje délku hesla a znemožní detekci stejných hesel dle shody hašů
+![salting](./img/salt.png)
   - **pepper** - data, která se při hešování přidávájí ke vstupu, jsou však utajená (neukládáme je vedle haše)
 - nucená expirace hesla může mít za následek používání obecně slabších hesel
 - dobrý kompromis mezi bezpečností a zapamatovatelností jsou hesla založená na frázích (se zakomponováním speciálních znaků/číslic), nebo lokálním důvěryhodným správcem hesel
@@ -87,6 +88,8 @@ Autentizace může proběhnout na základě výzvy, nebo klidně z iniciativy su
 
 #### Autentizace pomocí symetrické kryptografie
 
+![syme](./img/symetric.png)
+
 Jak ověřit, že komunikuju s tím, kdo se mnou sdílí klíč?
 
 - pošlu náhodné číslo (a třeba sekvenční číslo/timestamp pro prevenci útoku), které mi má druhý vrátit zašifrované
@@ -105,6 +108,8 @@ Do zpráv je možné přidat identitu challengera, abychom předešli man in the
 |![](img/20230613181843.png)|![](img/20230613181909.png)|
 
 #### Autentizace pomocí asymetrické kryptografie
+
+![as](./img/asymetric.png)
 
 Pomocí šifrování: Zašifruju zprávu veřejným klíčem. Jestli jsi majitel soukromého klíče, dešifruj a pošli výsledek zpět.
 
@@ -276,6 +281,7 @@ Některé algoritmy umožňují obnovu dat na základě podpisu (v podpisu jsou 
 - **Registrační autorita** - registruje žadatele o vydání certifikátu, prověřuje jejich identitu (může být zároveň CA)
 - **Adresářová služba** - uchovává a distribuuje platné klíče (a seznam zneplatněných certifikátů)
 - certifikační autoritu obvykle certifikuje nadřazená certifikační autorita, čímž se tvoří řetězec důvěry
+![PKI](./img/PKI.png)
 
 **Vystavení certifikátu**
 
@@ -327,7 +333,7 @@ Některé algoritmy umožňují obnovu dat na základě podpisu (v podpisu jsou 
 - umožňuje oddělení poskytovatele identity a poskytovatele služeb, jinými slovy umožňuje Single Sign-On (SSO)
 - SAML token obsahuje
   - subject (kdo je držitel tokenu, e.g. user id)
-  - auth statement (způsob & čas provedené autentizace)
+  - auth statement (způsob & čas p  rovedené autentizace)
   - příslušnost ke skupinám, rolím, povolené operace
     ...
 
@@ -341,7 +347,7 @@ Některé algoritmy umožňují obnovu dat na základě podpisu (v podpisu jsou 
   - příprava systému na jednoduché testování (dekompozice, závislosti na abstrakcích) a diagnostiku chyb (logování, explicitní ošetření chyb)
   - logování událostí (abychom dokázali detekovat, co se v systému dělo)
 
-Pro zajištění bezpečnosti kódy lze postupovat různými způsoby, přístupy se nevylučují (víceúrovňová ochrana rozhodně není na škodu)
+Pro zajištění bezpečnosti kódu   lze postupovat různými způsoby, přístupy se nevylučují (víceúrovňová ochrana rozhodně není na škodu)
 
 - použití bezpečnějšího jazyka, který některé chyby neumožňuje, nebo je aspoň dělá těžší na provedení e.g. Rust
   - případně použití striktnějšího modu překladače

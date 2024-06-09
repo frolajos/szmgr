@@ -35,14 +35,14 @@ Sepsáno na základě přednášek, osobních zkušeností, praxe, a samozřejm�
    - [ ] International standards and methodologies for project management (PMI Project Management Body of Knowledge, PRINCE 2).
    - [ ] Practical examples for all of the above.
 5. [Databases](./5_databaze.md) (PV003 || PV062 || **PA152**)
-   - [ ] Principles of data storage, databases and file systems.
+   - [x] Principles of data storage, databases and file systems.
    - [ ] Data encoding and compression.
-   - [ ] Architecture of relational databases, SQL query language and its parts (definitions, manipulation, transactions).
-   - [ ] Data schema definition language, DDL.
-   - [ ] Data manipulation language, DML.
-   - [ ] Relational algebra, integrity constraints, transaction control.
-   - [ ] Indexing, hashing.
-   - [ ] Practical examples for all of the above.
+   - [x] Architecture of relational databases, SQL query language and its parts (definitions, manipulation, transactions).
+   - [x] Data schema definition language, DDL.
+   - [x] Data manipulation language, DML.
+   - [x] Relational algebra, integrity constraints, transaction control.
+   - [x] Indexing, hashing.
+   - [x] Practical examples for all of the above.
 6. [Computer networks](./6_pocitacove_site.md) (**PA159**, PA191) - IMPORTANT
    - [ ] Concepts, principles, architectures.
    - [ ] ISO/OSI and TCP/IP model, IP protocol, transport protocols (TCP, UDP).
@@ -60,13 +60,13 @@ Sepsáno na základě přednášek, osobních zkušeností, praxe, a samozřejm�
 ## DEV
 
 1. [Analysis and design of systems](./dev_1_analyza_a_navrh.md) (**PA103**, **PV167**, PV258)
-   - [ ] Object-oriented methods of information systems design.
-   - [ ] Requirements specification and management.
-   - [ ] Software architectures, component systems.
-   - [ ] Design and architectural patterns.
-   - [ ] Component interfaces, interface level contracts, OCL.
-   - [ ] Software system models, UML.
-   - [ ] Practical examples for all of the above.
+   - [x] Object-oriented methods of information systems design.
+   - [x] Requirements specification and management.
+   - [x] Software architectures, component systems.
+   - [x] Design and architectural patterns.
+   - [x] Component interfaces, interface level contracts, OCL.
+   - [x] Software system models, UML.
+   - [x] Practical examples for all of the above.
 2. [Data processing](./dev_2_zpracovani_dat.md) (**PA220**, **PA036**)
    - [ ] Basic concepts and principles of data warehousing, data analytics and business intelligence.
    - [ ] Data warehouse lifecycle.
@@ -74,10 +74,10 @@ Sepsáno na základě přednášek, osobních zkušeností, praxe, a samozřejm�
    - [ ] Advanced data processing techniques, performance aspects of big data processing.
    - [ ] Practical examples for all of the above.
 3. [Secure Code](./dev_3_bezpecny_kod.md) (**PV157**, PA193, PV276, **PV017**) - IMPORTANT
-   - [ ] Authentication and access control methods.
-   - [ ] Biometric authentication methods, their implications and problems.
-   - [ ] Electronic signature and its use.
-   - [ ] Authentication of machines and applications.
+   - [x] Authentication and access control methods.
+   - [x] Biometric authentication methods, their implications and problems.
+   - [x] Electronic signature and its use.
+   - [x] Authentication of machines and applications.
    - [ ] Principles and principles of secure code.
    - [ ] Typical code-level security vulnerabilities, concurrency, input treatment.
    - [ ] Security vulnerability detection, penetration testing.
