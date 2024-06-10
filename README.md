@@ -44,18 +44,18 @@ Sepsáno na základě přednášek, osobních zkušeností, praxe, a samozřejm�
    - [x] Indexing, hashing.
    - [x] Practical examples for all of the above.
 6. [Computer networks](./6_pocitacove_site.md) (**PA159**, PA191) - IMPORTANT
-   - [ ] Concepts, principles, architectures.
-   - [ ] ISO/OSI and TCP/IP model, IP protocol, transport protocols (TCP, UDP).
-   - [ ] Network layer protocols, IPv4 features, advanced IPv6 features.
-   - [ ] Peer-to-peer (P2P) networks, ad-hoc/sensor networks, high-speed networks, computer networks and multimedia.
-   - [ ] Practical examples for all of the above.
+   - [x] Concepts, principles, architectures.
+   - [x] ISO/OSI and TCP/IP model, IP protocol, transport protocols (TCP, UDP).
+   - [x] Network layer protocols, IPv4 features, advanced IPv6 features.
+   - [x] Peer-to-peer (P2P) networks, ad-hoc/sensor networks, high-speed networks, computer networks and multimedia.
+   - [x] Practical examples for all of the above.
 7. [Distributed Systems](./7_distribuovane_systemy.md) (**PA053**)
-   - [ ] Basic concepts, principles.
-   - [ ] Difference between centralized and distributed system architecture, disadvantages of both and how to overcome them.
-   - [ ] Replication, data sharing.
-   - [ ] Service-oriented architecture (SOA), web services.
-   - [ ] Examples of existing technologies and their use.
-   - [ ] Practical examples for all of the above.
+   - [x] Basic concepts, principles.
+   - [x] Difference between centralized and distributed system architecture, disadvantages of both and how to overcome them.
+   - [x] Replication, data sharing.
+   - [x] Service-oriented architecture (SOA), web services.
+   - [x] Examples of existing technologies and their use.
+   - [x] Practical examples for all of the above.
 
 ## DEV
 
@@ -68,11 +68,11 @@ Sepsáno na základě přednášek, osobních zkušeností, praxe, a samozřejm�
    - [x] Software system models, UML.
    - [x] Practical examples for all of the above.
 2. [Data processing](./dev_2_zpracovani_dat.md) (**PA220**, **PA036**)
-   - [ ] Basic concepts and principles of data warehousing, data analytics and business intelligence.
-   - [ ] Data warehouse lifecycle.
-   - [ ] Big data analytics, languages for implementing analytic tasks, database-level analytics.
-   - [ ] Advanced data processing techniques, performance aspects of big data processing.
-   - [ ] Practical examples for all of the above.
+   - [x] Basic concepts and principles of data warehousing, data analytics and business intelligence.
+   - [x] Data warehouse lifecycle.
+   - [x] Big data analytics, languages for implementing analytic tasks, database-level analytics.
+   - [x] Advanced data processing techniques, performance aspects of big data processing.
+   - [x] Practical examples for all of the above.
 3. [Secure Code](./dev_3_bezpecny_kod.md) (**PV157**, PA193, PV276, **PV017**) - IMPORTANT
    - [x] Authentication and access control methods.
    - [x] Biometric authentication methods, their implications and problems.

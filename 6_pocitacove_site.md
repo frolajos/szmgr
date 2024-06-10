@@ -374,9 +374,9 @@ Pro realtime přenosy se používá multicast, namísto spousty unicastů (síť
 
 Média se mohou přenášet diskretizovaně (soubor, zpráva), nebo kontinuálně (stream).
 
-**Text** - e.g. HTTP, SMTP, FTP, vyžaduje relativně málo bandwidth, delay a nároky na chybovost závisí na aplikaci. Komprese e.g. pomocí huffman, nebo shannon-fano kódování (více v [otázka 5 - databáze](./5_databaze.md#kódování-a-komprese-dat)), na webu se používá gzip (obsahuje huffmana), drobné chyby dělají problémy
-**Audio** - v základu analog, digitalizace pomocí vzorkování (hodnota v čase) signálu a kvantitatizace (mapování e.g. na celá čísla). Požadavky na šířku pásma záleží na požadované kvalitě a případné komprimaci, jsme ochotni tolerovat drobné chyby
-**Grafika** - obvykle nejsou požadavky na rychlost (pokud není tragická)
+**Text** - e.g. HTTP, SMTP, FTP, vyžaduje relativně málo bandwidth, delay a nároky na chybovost závisí na aplikaci. Komprese e.g. pomocí huffman, nebo shannon-fano kódování (více v [otázka 5 - databáze](./5_databaze.md#kódování-a-komprese-dat)), na webu se používá gzip (obsahuje huffmana), drobné chyby dělají problémy  
+**Audio** - v základu analog, digitalizace pomocí vzorkování (hodnota v čase) signálu a kvantitatizace (mapování e.g. na celá čísla). Požadavky na šířku pásma záleží na požadované kvalitě a případné komprimaci, jsme ochotni tolerovat drobné chyby  
+**Grafika** - obvykle nejsou požadavky na rychlost (pokud není tragická)  
 **Video** - obvykle náročné na šířku pásma, jinak se specifiky podobá audiu
 
 ## Notes
